@@ -15,6 +15,7 @@ import com.radiusagent.facilitypicker.data.local.realm.FacilityRealmManager
 import com.radiusagent.facilitypicker.data.remote.RetrofitClient
 import com.radiusagent.facilitypicker.databinding.FragmentFacilityBinding
 import com.radiusagent.facilitypicker.ui.adapters.FacilityAdapter
+import com.radiusagent.facilitypicker.ui.adapters.SavedFacilitiesAdapter
 import io.realm.Realm
 
 
@@ -24,6 +25,7 @@ class FacilityFragment : Fragment(), FacilityContract.View {
     private lateinit var presenter: FacilityContract.Presenter
     private lateinit var realm: Realm
     private lateinit var facilityAdapter: FacilityAdapter
+    private lateinit var facilitiesAdapter: SavedFacilitiesAdapter
     private lateinit var exclusionList: ExclusionList
 
     override fun onCreateView(
@@ -42,9 +44,14 @@ class FacilityFragment : Fragment(), FacilityContract.View {
 
     private fun setupRecyclerView() {
         facilityAdapter = FacilityAdapter()
+        facilitiesAdapter = SavedFacilitiesAdapter()
         binding.recyclerFacilities.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = facilityAdapter
+        }
+        binding.recyclerSavedFacilities.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = facilitiesAdapter
         }
     }
 
@@ -60,13 +67,15 @@ class FacilityFragment : Fragment(), FacilityContract.View {
         facilities: List<Facility>, exclusionOptions: List<List<ExclusionOptions>>
     ) {
         facilityAdapter.setData(facilities, exclusionOptions)
+        facilitiesAdapter.setData(facilities, exclusionOptions)
         binding.title = getString(R.string.facility_title)
 
         binding.btnAddFacility.setOnClickListener {
-            Toast.makeText(context, exclusionList.isSelectedOptionValid(), Toast.LENGTH_SHORT).show()
             /*if(exclusionList.isSelectedOptionValid()=="Saved"){
                 // WE Have to save the data of this selection on the facilities on realm
             }*/
+            Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
+
         }
 
     }

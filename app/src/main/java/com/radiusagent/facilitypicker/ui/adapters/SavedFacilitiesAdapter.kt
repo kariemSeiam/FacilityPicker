@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.radiusagent.facilitypicker.data.local.models.ExclusionOptions
 import com.radiusagent.facilitypicker.data.local.models.Facility
 import com.radiusagent.facilitypicker.data.local.models.Option
-import com.radiusagent.facilitypicker.databinding.ItemFacilityBinding
+import com.radiusagent.facilitypicker.databinding.ItemSavedFacilityBinding
 import com.radiusagent.facilitypicker.ui.facilities.ExclusionList
 
-class FacilityAdapter : RecyclerView.Adapter<FacilityAdapter.FacilityViewHolder>() {
+class SavedFacilitiesAdapter :
+    RecyclerView.Adapter<SavedFacilitiesAdapter.SavedFacilityViewHolder>() {
 
     private val facilities: MutableList<Facility> = mutableListOf()
     private var selectedOptions: MutableMap<String, Option> = mutableMapOf()
@@ -18,16 +19,17 @@ class FacilityAdapter : RecyclerView.Adapter<FacilityAdapter.FacilityViewHolder>
     private lateinit var exclusionList: ExclusionList
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FacilityViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedFacilityViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemFacilityBinding.inflate(inflater, parent, false)
-        return FacilityViewHolder(binding)
+        val binding = ItemSavedFacilityBinding.inflate(inflater, parent, false)
+        return SavedFacilityViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: FacilityViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SavedFacilityViewHolder, position: Int) {
         val facility = facilities[position]
         holder.bind(facility)
     }
+
 
     override fun getItemCount(): Int = facilities.size
 
@@ -41,16 +43,16 @@ class FacilityAdapter : RecyclerView.Adapter<FacilityAdapter.FacilityViewHolder>
     }
 
 
-    inner class FacilityViewHolder(private val binding: ItemFacilityBinding) :
+    inner class SavedFacilityViewHolder(private val binding: ItemSavedFacilityBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(facility: Facility) {
-            binding.facilityName = facility.name
+            binding.facilityNameSaved = facility.name
             setupOptionsChips(facility)
         }
 
         private fun setupOptionsChips(facility: Facility) {
-            binding.chipGroup.removeAllViews()
+            binding.chipGroupSaved.removeAllViews()
             for (option in facility.options) {
                 val chipAdapter = ChipAdapter(
                     facility = facility,
@@ -61,12 +63,12 @@ class FacilityAdapter : RecyclerView.Adapter<FacilityAdapter.FacilityViewHolder>
                     },
                     context = binding.root.context,
                     exclusionOptions = excludedFacilityIds,
-                    isSavedFacility = false
+                    isSavedFacility = true
                 )
 
-                val chipViewHolder = chipAdapter.onCreateViewHolder(binding.chipGroup, 0)
+                val chipViewHolder = chipAdapter.onCreateViewHolder(binding.chipGroupSaved, 0)
                 val chip = chipViewHolder.createChip(option)
-                binding.chipGroup.addView(chip)
+                binding.chipGroupSaved.addView(chip)
 
             }
         }

@@ -22,18 +22,20 @@ class FacilityPresenter(
             .observeOn(AndroidSchedulers.mainThread()).subscribe({ response ->
 
                 view.showFacilities(response.facilities, response.exclusionOptions)
-                exclusionList.addExclusions(response.exclusionOptions)/*
-                 U Can Use any one of them
+                /*
+                exclusionList.addExclusions(response.exclusionOptions)
 
-                 saveFacilityResponse() just once a day as u said
+                U Can Use any one of them
 
-                 getFacilityResponse()
-                  we use this as base one we have to ues just this in getData() and just we use the previous one just once daily
+                saveFacilityResponse() just once a day as u said
 
-                 clearFacilityResponse() we don't need to use it
+                getFacilityResponse()
+                 we use this as base one we have to ues just this in getData() and just we use the previous one just once daily
 
-                 // There is Small Error in saving Data on DB Cause It's my 1st with realm
-                */
+                clearFacilityResponse() we don't need to use it
+
+                // There is Small Error in saving Data on DB Cause It's my 1st with realm
+               */
             }, { error ->
                 view.showError(error.message ?: "Unknown error occurred")
             })

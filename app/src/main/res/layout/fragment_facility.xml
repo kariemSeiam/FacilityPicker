@@ -24,6 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
+            app:layout_constraintBottom_toTopOf="@id/recycler_facilities"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -43,7 +44,6 @@
             android:id="@+id/recycler_facilities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBaseline_toTopOf="@id/recycler_saved_facilities"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bottom_sheet_app_bar"
@@ -53,10 +53,12 @@
             android:id="@+id/recycler_saved_facilities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:listitem="@layout/item_saved_facility"
-            app:layout_constraintTop_toBottomOf="@id/recycler_facilities" />
+            app:layout_constraintTop_toBottomOf="@id/recycler_facilities"
+            tools:listitem="@layout/item_saved_facility" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/btn_add_facility"
